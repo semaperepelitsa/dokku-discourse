@@ -200,8 +200,8 @@ fn-configure-app() {
   domains_set "$APP_NAME" "$HOSTNAME"
 
   ## TODO: call plugin functions instead of dokku
-  dokku proxy:ports-add "$APP_NAME" http:80:80       # add correct port mapping
-  dokku proxy:ports-remove "$APP_NAME" http:80:5000  # remove default port mapping as a result of calling domains:set
+  dokku ports:clear # remove default port mapping as a result of calling domains:set
+  dokku ports:add "$APP_NAME" http:80:80 # add correct port mapping
 
   # shellcheck disable=SC2086
   config_set --no-restart "$APP_NAME" $ENV_VARS
